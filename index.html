@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeTravel - Accessible Navigation for All</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #004d99;
+            --text-color: #333;
+            --bg-color: #fff;
+            --contrast-mode: normal;
+        }
+
+        /* High Contrast Mode */
+        .high-contrast {
+            --primary-color: #000;
+            --secondary-color: #fff;
+            --text-color: #fff;
+            --bg-color: #000;
+            --contrast-mode: high;
+        }
+
+        .yellow-black {
+            --primary-color: #ff0;
+            --secondary-color: #000;
+            --text-color: #000;
+            --bg-color: #ff0;
+            --contrast-mode: yellow-black;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            padding: 0.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: 2px solid white;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        .feature-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+        }
+
+        .accessibility-toolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .accessibility-panel {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            width: 250px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .accessibility-panel h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .accessibility-option {
+            margin-bottom: 0.5rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .vibrate {
+            animation: vibrate 0.3s linear;
+        }
+
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Voice Navigation Interface */
+        .voice-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        /* Map Container */
+        .map-container {
+            height: 400px;
+            background-color: #eee;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Community Forum */
+        .forum-post {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                margin: 0.2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SafeTravel</h1>
+        <p>Accessible Navigation for Everyone</p>
+    </header>
+
+    <nav>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#navigation" class="nav-link">Navigation</a>
+        <a href="#transport" class="nav-link">Public Transport</a>
+        <a href="#community" class="nav-link">Community</a>
+        <a href="#about" class="nav-link">About Us</a>
+    </nav>
+
+    <main>
+        <section id="features">
+            <h2>Our Features</h2>
+            
+            <div class="feature-card">
+                <h3>Voice-Assisted Navigation</h3>
+                <p>Real-time audio guidance for routes, stops, and obstacles to help you navigate safely.</p>
+                <button id="demo-voice-btn">Try Voice Demo</button>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Accessible Mapping</h3>
+                <p>Tactile and audio feedback for exploring maps with ease.</p>
+                <div class="map-container" id="accessible-map">
+                    <!-- Map will be loaded here -->
+                    <p>Interactive accessible map would appear here with tactile feedback options</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Public Transportation Integration</h3>
+                <p>Real-time schedules, routes, and updates for buses, trains, and subways.</p>
+                <div id="transport-schedules">
+                    <!-- Transport schedules will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Obstacle Detection</h3>
+                <p>AI-powered alerts for potential hazards along your route.</p>
+                <button id="obstacle-demo-btn">Demo Obstacle Detection</button>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Community Support</h3>
+                <p>Connect with other users, share experiences, and ask for help.</p>
+                <div id="community-preview">
+                    <div class="forum-post">
+                        <h4>User123:</h4>
+                        <p>The route from Main Street to Central Park is very accessible today!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="navigation">
+            <h2>Navigation Assistance</h2>
+            <div class="feature-card">
+                <h3>Plan Your Route</h3>
+                <form id="route-planner">
+                    <label for="start">Starting Point:</label>
+                    <input type="text" id="start" aria-label="Starting point">
+                    
+                    <label for="end">Destination:</label>
+                    <input type="text" id="end" aria-label="Destination">
+                    
+                    <button type="submit">Get Directions</button>
+                </form>
+                <div id="route-results"></div>
+            </div>
+        </section>
+
+        <section id="transport">
+            <h2>Public Transportation</h2>
+            <div class="feature-card">
+                <h3>Real-time Updates</h3>
+                <div id="live-transport">
+                    <!-- Live transport data will appear here -->
+                    <p>Loading real-time transport information...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="community">
+            <h2>Community Forum</h2>
+            <div class="feature-card">
+                <h3>Share Your Experience</h3>
+                <form id="post-form">
+                    <label for="post-title">Title:</label>
+                    <input type="text" id="post-title" aria-label="Post title">
+                    
+                    <label for="post-content">Your Message:</label>
+                    <textarea id="post-content" aria-label="Post content"></textarea>
+                    
+                    <button type="submit">Post to Community</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Accessibility Toolbar -->
+    <div class="accessibility-toolbar" id="access-btn" aria-label="Accessibility options">
+        ♿
+    </div>
+
+    <div class="accessibility-panel" id="access-panel">
+        <h3>Accessibility Options</h3>
+        
+        <div class="accessibility-option">
+            <label>Color Contrast:</label>
+            <button id="normal-contrast">Default</button>
+            <button id="high-contrast">High Contrast</button>
+            <button id="yellow-black">Yellow/Black</button>
+        </div>
+        
+        <div class="accessibility-option">
+            <label>Text Size:</label>
+            <button id="text-smaller">A-</button>
+            <button id="text-normal">A</button>
+            <button id="text-larger">A+</button>
+        </div>
+        
+        <div class="accessibility-option">
+            <label>Enable Tactile Feedback:</label>
+            <input type="checkbox" id="tactile-toggle">
+        </div>
+        
+        <div class="accessibility-option">
+            <button id="read-page">Read Page Aloud</button>
+        </div>
+    </div>
+
+    <!-- Voice Navigation Interface -->
+    <div class="voice-controls">
+        <button id="start-voice">Start Voice Guidance</button>
+        <button id="stop-voice">Stop Voice Guidance</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 SafeTravel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Accessibility Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle accessibility panel
+            const accessBtn = document.getElementById('access-btn');
+            const accessPanel = document.getElementById('access-panel');
+            
+            accessBtn.addEventListener('click', function() {
+                accessPanel.style.display = accessPanel.style.display === 'block' ? 'none' : 'block';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Contrast modes
+            document.getElementById('normal-contrast').addEventListener('click', function() {
+                document.body.className = '';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            document.getElementById('high-contrast').addEventListener('click', function() {
+                document.body.className = 'high-contrast';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            document.getElementById('yellow-black').addEventListener('click', function() {
+                document.body.className = 'yellow-black';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Text size adjustment
+            document.getElementById('text-smaller').addEventListener('click', function() {
+                document.body.style.fontSize = '14px';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            document.getElementById('text-normal').addEventListener('click', function() {
+                document.body.style.fontSize = '16px';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            document.getElementById('text-larger').addEventListener('click', function() {
+                document.body.style.fontSize = '18px';
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Tactile feedback for interactive elements
+            const interactiveElements = document.querySelectorAll('button, a, input, [role=button]');
+            interactiveElements.forEach(el => {
+                el.addEventListener('focus', function() {
+                    if (document.getElementById('tactile-toggle').checked) {
+                        this.classList.add('vibrate');
+                        setTimeout(() => this.classList.remove('vibrate'), 300);
+                    }
+                });
+            });
+
+            // Voice navigation demo
+            const synth = window.speechSynthesis;
+            document.getElementById('demo-voice-btn').addEventListener('click', function() {
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+                const utterance = new SpeechSynthesisUtterance("Welcome to SafeTravel voice navigation. Turn right in 50 meters.");
+                synth.speak(utterance);
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Obstacle detection demo
+            document.getElementById('obstacle-demo-btn').addEventListener('click', function() {
+                alert("Obstacle detected ahead: construction zone. Suggested alternate route available.");
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Read page aloud
+            document.getElementById('read-page').addEventListener('click', function() {
+                const pageText = document.body.innerText;
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+                const utterance = new SpeechSynthesisUtterance(pageText);
+                synth.speak(utterance);
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Voice guidance controls
+            document.getElementById('start-voice').addEventListener('click', function() {
+                const utterance = new SpeechSynthesisUtterance("Voice guidance started. Please select your destination.");
+                synth.speak(utterance);
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            document.getElementById('stop-voice').addEventListener('click', function() {
+                synth.cancel();
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Route planning
+            document.getElementById('route-planner').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const start = document.getElementById('start').value;
+                const end = document.getElementById('end').value;
+                document.getElementById('route-results').innerHTML = `
+                    <h4>Route from ${start} to ${end}:</h4>
+                    <ol>
+                        <li>Walk 200m north on Main Street</li>
+                        <li>Turn right onto 5th Avenue</li>
+                        <li>Destination will be on your left</li>
+                    </ol>
+                `;
+                
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+
+            // Community post
+            document.getElementById('post-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = document.getElementById('post-title').value;
+                const content = document.getElementById('post-content').value;
+                
+                const newPost = document.createElement('div');
+                newPost.className = 'forum-post';
+                newPost.innerHTML = `
+                    <h4>You:</h4>
+                    <p><strong>${title}</strong></p>
+                    <p>${content}</p>
+                `;
+                
+                document.getElementById('community-preview').prepend(newPost);
+                
+                // Clear form
+                document.getElementById('post-title').value = '';
+                document.getElementById('post-content').value = '';
+                
+                if (document.getElementById('tactile-toggle').checked) {
+                    this.classList.add('vibrate');
+                    setTimeout(() => this.classList.remove('vibrate'), 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
